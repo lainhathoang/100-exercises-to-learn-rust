@@ -15,7 +15,33 @@ pub fn fibonacci(n: u32) -> u32 {
     //
     // Hint: use a `Vec` to memoize the results you have already calculated
     // so that you don't have to recalculate them several times.
-    todo!()
+    if n == 0 {
+        0
+    } else if n == 1 {
+        1
+    } else {
+        let mut arr: Vec<u32> = Vec::new();
+        let mut i = 0;
+
+        while i <= n {
+            if i == 0 {
+                arr.push(0);
+            } else if i == 1 {
+                arr.push(1);
+            } else {
+                // let value = arr.get(i as usize). - arr.get(i as usize - 1).unwrap();
+                // let value = arr[i as usize - 1] + arr[i as usize - 2];
+                let value = match (arr.get(i as usize - 1), arr.get(i as usize - 2)) {
+                    (Some(&a), Some(&b)) => a + b,
+                    _ => 0,
+                };
+                arr.push(value);
+                // arr.push(arr[i as usize - 1] - arr[i as usize - 2]);
+            }
+            i += 1;
+        }
+        *arr.last().unwrap()
+    }
 }
 
 #[cfg(test)]
